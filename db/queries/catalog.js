@@ -79,7 +79,14 @@ export async function listProducts(filters = {}) {
 
 export async function listCategories({ includeService = true } = {}) {
   return query(
-    `SELECT c.id, c.name, c.slug, c.description, c.image_url, c.image_alt, c.kind, c.sort_order,
+    `SELECT c.id, c.name, c.slug, c.description, c.kind, c.sort_order,
+            -- The collection's own photo, or else a photo from one of its published products.
+            COALESCE(c.image_url, (
+              SELECT pi.url FROM products p JOIN product_images pi ON pi.product_id = p.id
+               WHERE p.category_id = c.id AND p.status = 'published'
+               ORDER BY p.is_featured DESC, p.published_at DESC NULLS LAST, pi.sort_order, pi.id
+               LIMIT 1)) AS image_url,
+            COALESCE(c.image_alt, CASE WHEN c.image_url IS NULL THEN c.name END) AS image_alt,
             (SELECT COUNT(*)::int FROM products p WHERE p.category_id = c.id AND p.status = 'published') AS product_count
        FROM categories c
       WHERE c.is_active ${includeService ? '' : "AND c.kind = 'shop'"}
