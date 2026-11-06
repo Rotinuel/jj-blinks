@@ -1,0 +1,166 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-burgundy: #650f18;
+  --color-wine: #8f142a;
+  --color-ivory: #fff8f0;
+  --color-ivory-deep: #f6ebdf;
+  --color-gold: #d6ae63;
+  --color-charcoal: #21191a;
+  --color-rose: #d9a0a5;
+  --color-rose-tint: #f3e1df;
+  --color-muted: #6e5e60;
+  --color-line: #e7d9cb;
+  --color-danger: #a3192e;
+  --color-ok: #3d6b47;
+
+  --font-display: var(--font-bodoni), 'Bodoni 72', 'Didot', Georgia, serif;
+  --font-sans: var(--font-jost), 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+
+  --text-display: clamp(2.5rem, 4.5vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-title: clamp(1.6rem, 1.25rem + 1.3vw, 2.4rem);
+  --text-title--line-height: 1.12;
+
+  --radius-arch: 999px 999px 0 0 / 46% 46% 0 0;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: #ffffff;
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  ::selection { background: var(--color-rose); color: var(--color-charcoal); }
+  input, select, textarea { font: inherit; color: inherit; }
+}
+
+@layer components {
+  .wrap { width: 100%; max-width: 84rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 3rem); }
+  .measure { max-width: 38rem; }
+
+  .arch { border-radius: var(--radius-arch); overflow: hidden; }
+
+  /* Buttons: rectangular, confident, no pills. */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.9rem; padding: 0.7rem 1.6rem; border-radius: 9999px;
+    font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em;
+    border: 1px solid transparent; cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .btn-primary { background: var(--color-burgundy); color: var(--color-ivory); }
+  .btn-primary:hover:not(:disabled) { background: var(--color-wine); box-shadow: 0 4px 14px color-mix(in srgb, var(--color-burgundy) 30%, transparent); }
+  .btn-light { background: var(--color-ivory); color: var(--color-burgundy); }
+  .btn-light:hover:not(:disabled) { background: var(--color-ivory-deep); }
+  .btn-outline { border-color: currentColor; border-width: 1.5px; background: transparent; }
+  .btn-outline:hover:not(:disabled) { background: color-mix(in srgb, currentColor 8%, transparent); }
+  .btn-sm { min-height: 2.25rem; padding: 0.35rem 1rem; font-size: 0.85rem; }
+
+  .link { color: var(--color-wine); text-decoration: underline; }
+  .link:hover { color: var(--color-burgundy); }
+
+  /* Forms */
+  .field { display: grid; gap: 0.35rem; }
+  .label { font-size: 0.85rem; font-weight: 500; color: var(--color-charcoal); }
+  .hint { font-size: 0.8rem; color: var(--color-muted); }
+  .input {
+    width: 100%; min-height: 2.9rem; padding: 0.6rem 0.8rem;
+    background: #fff; border: 1px solid #cfc3b8; border-radius: 0.75rem;
+  }
+  .input:focus { outline: none; border-color: var(--color-wine); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 45%, transparent); }
+  .input[aria-invalid='true'] { border-color: var(--color-danger); }
+  textarea.input { min-height: 7rem; resize: vertical; }
+  .error-text { font-size: 0.82rem; color: var(--color-danger); }
+
+  .rule { border: 0; border-top: 1px solid var(--color-line); }
+  .rule-gold { border: 0; border-top: 1px solid var(--color-gold); }
+
+  .notice { border-left: 3px solid var(--color-gold); background: var(--color-ivory-deep); padding: 0.9rem 1.1rem; font-size: 0.92rem; border-radius: 0.75rem; }
+  .notice-error { border-left-color: var(--color-danger); background: #fbeceb; }
+  .notice-ok { border-left-color: var(--color-ok); background: #edf3ec; }
+
+  .prose-body p + p { margin-top: 1em; }
+  .prose-body h2 { font-size: 1.6rem; margin: 2rem 0 0.75rem; }
+  .prose-body ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
+
+  /* Woven lozenge lattice: the brand ornament. Used for missing photography and the selvedge band. */
+  .woven-dark {
+    background-color: #7a1022;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cg fill='none' stroke='%23D6AE63' stroke-opacity='.3'%3E%3Cpath d='M18 5 31 18 18 31 5 18z'/%3E%3Cpath d='M0 0 5 5M36 0l-5 5M0 36l5-5M36 36l-5-5'/%3E%3C/g%3E%3Cpath d='M18 14.5 21.5 18 18 21.5 14.5 18z' fill='%23D6AE63' fill-opacity='.4'/%3E%3C/svg%3E");
+    background-size: 36px 36px;
+  }
+  .woven-light {
+    background-color: var(--color-ivory-deep);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cg fill='none' stroke='%238F142A' stroke-opacity='.13'%3E%3Cpath d='M18 5 31 18 18 31 5 18z'/%3E%3Cpath d='M0 0 5 5M36 0l-5 5M0 36l5-5M36 36l-5-5'/%3E%3C/g%3E%3Cpath d='M18 14.5 21.5 18 18 21.5 14.5 18z' fill='%23D6AE63' fill-opacity='.55'/%3E%3C/svg%3E");
+    background-size: 36px 36px;
+  }
+  .placeholder { position: relative; display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; border-radius: inherit; }
+  .placeholder-mark { font-size: clamp(2.6rem, 6vw, 6.5rem); text-shadow: 0 0 0.5em color-mix(in srgb, currentColor 15%, transparent); }
+  .placeholder::after { content: ''; position: absolute; inset: 10px; border: 1px solid color-mix(in srgb, currentColor 35%, transparent); border-radius: inherit; pointer-events: none; }
+  .arch .placeholder::after { border-radius: var(--radius-arch); }
+
+  /* A narrow woven band, like the selvedge of a strip of aso-oke. */
+  .selvedge {
+    height: 14px;
+    background-color: var(--color-burgundy);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14'%3E%3Cpath d='M8 3.5 11.5 7 8 10.5 4.5 7z' fill='%23D6AE63'/%3E%3Cpath d='M0 .5h16M0 13.5h16' stroke='%23D6AE63' stroke-opacity='.55'/%3E%3C/svg%3E");
+    background-size: 16px 14px;
+  }
+
+  /* An arch with a gold outline set off behind it. */
+  .arch-frame { position: relative; }
+  .arch-frame::before {
+    content: ''; position: absolute; inset: 1.1rem -1.1rem -1.1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-gold) 60%, transparent);
+    border-radius: var(--radius-arch); pointer-events: none;
+  }
+
+  /* Gold hairline with a lozenge at its centre. */
+  .ornament { display: flex; align-items: center; gap: 0.75rem; color: var(--color-gold); }
+  .ornament::before, .ornament::after { content: ''; height: 1px; flex: 1; background: currentColor; opacity: 0.6; }
+
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(13rem, 18rem); gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; scrollbar-width: thin; }
+  .rail > * { scroll-snap-align: start; }
+
+  .table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .table th { text-align: left; font-weight: 500; color: var(--color-muted); padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-line); white-space: nowrap; }
+  .table td { padding: 0.7rem 0.75rem; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+  .table tr:hover td { background: color-mix(in srgb, var(--color-ivory-deep) 60%, transparent); }
+
+  .tag { display: inline-block; padding: 0.15rem 0.6rem; font-size: 0.75rem; border: 1px solid var(--color-line); background: #fff; white-space: nowrap; border-radius: 9999px; }
+  .tag-wine { border-color: var(--color-wine); color: var(--color-wine); }
+  .tag-ok { border-color: var(--color-ok); color: var(--color-ok); }
+  .tag-warn { border-color: #a06b12; color: #8a5a0b; background: #fdf5e6; }
+}
+
+/* Hero entrance: the one orchestrated motion on the site. */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes unveil { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+.hero-line { animation: rise 900ms cubic-bezier(.2,.7,.2,1) both; }
+.hero-line:nth-child(2) { animation-delay: 140ms; }
+.hero-figure { animation: unveil 1200ms cubic-bezier(.6,.05,.2,1) 200ms both; }
+.arch-frame::before { animation: rise 900ms ease 900ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

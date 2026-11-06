@@ -1,0 +1,33 @@
+{
+  "name": "jjblinks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "bun scripts/migrate.js",
+    "db:seed": "bun scripts/seed.js",
+    "db:seed-dev": "bun scripts/seed-dev.js",
+    "db:remove-samples": "bun scripts/remove-sample-data.js",
+    "admin:create": "bun scripts/create-admin.js",
+    "test": "node --test tests/*.test.js",
+    "test:unit": "node --test tests/unit.test.js",
+    "test:integration": "node --test tests/integration.test.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "@vercel/blob": "^2.8.2",
+    "next": "^16.4.5",
+    "nodemailer": "^10.3.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.4",
+    "tailwindcss": "^4.3.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
