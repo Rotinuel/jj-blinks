@@ -3,6 +3,7 @@ import { getNavCategories, getStoreContext } from '@/lib/storefront';
 import { bestSellers, featuredProducts, newArrivals } from '@/db/queries/catalog';
 import { Photo } from '@/components/ui/Photo';
 import { ProductGrid } from '@/components/products/ProductCard';
+import CategoryMarquee from '@/components/storefront/CategoryMarquee';
 import { whatsappLink } from '@/lib/utilities';
 
 export const metadata = { alternates: { canonical: '/' } };
@@ -48,21 +49,7 @@ export default async function HomePage() {
           </h1>
           {h.hero.subheading && <p className="mx-auto mt-3 max-w-xl text-[0.95rem] text-muted">{h.hero.subheading}</p>}
         </div>
-        {collections.length > 0 && (
-          <ul className="wrap mt-8 flex gap-5 overflow-x-auto pb-3 [scrollbar-width:thin] [justify-content:safe_center] sm:gap-7">
-            {collections.map((c) => (
-              <li key={c.slug} className="w-[6.5rem] shrink-0 sm:w-[7.5rem]">
-                <Link href={`/collections/${c.slug}`} className="group block text-center">
-                  <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-full bg-white ring-1 ring-line transition-shadow group-hover:shadow-lg group-hover:ring-burgundy/40">
-                    <Photo src={c.image_url} alt={c.image_alt || c.name} sizes="8rem" placeholderLabel={`${c.name} photograph coming soon`} placeholderMark={c.name.charAt(0)}
-                      className="transition-transform duration-500 group-hover:scale-105" />
-                  </div>
-                  <p className="mt-2 text-sm font-medium leading-tight group-hover:underline">{c.name}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        <CategoryMarquee collections={collections} />
       </section>
 
       {/* Promo cards */}

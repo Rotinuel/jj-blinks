@@ -4,6 +4,7 @@ import { DISPLAY_CURRENCIES } from '@/lib/currency';
 import { getCurrentUser } from '@/lib/auth';
 import { BagLink, CategoriesMenu, CurrencySelect, MobileMenu } from './HeaderClient';
 import { HeartIcon, SearchIcon, UserIcon } from '@/components/ui/icons';
+import CollectionLinks from './CollectionLinks';
 
 const LINKS = [
   { href: '/shop', label: 'Shop' },
@@ -73,15 +74,15 @@ export default async function Header() {
           <SearchBar id="site-search-mobile" />
         </div>
         <nav aria-label="Collections" className="border-t border-line/70">
-          <ul className="wrap flex gap-1 overflow-x-auto py-1.5 text-sm [scrollbar-width:none] [justify-content:safe_center]">
-            {collections.map((c) => (
-              <li key={c.slug} className="shrink-0">
-                <Link href={`/collections/${c.slug}`} className="block rounded-full px-3 py-1.5 hover:bg-ivory-deep">{c.name}</Link>
-              </li>
-            ))}
-            <li className="shrink-0"><Link href="/custom-orders" className="block rounded-full px-3 py-1.5 text-burgundy hover:bg-ivory-deep">Custom orders</Link></li>
-            <li className="shrink-0"><Link href="/bulk-orders" className="block rounded-full px-3 py-1.5 text-burgundy hover:bg-ivory-deep">Bulk & corporate</Link></li>
-          </ul>
+          <div className="wrap py-1.5">
+            <CollectionLinks
+              items={[
+                ...collections.map((c) => ({ href: `/collections/${c.slug}`, label: c.name })),
+                { href: '/custom-orders', label: 'Custom orders', accent: true },
+                { href: '/bulk-orders', label: 'Bulk & corporate', accent: true },
+              ]}
+            />
+          </div>
         </nav>
       </header>
     </>

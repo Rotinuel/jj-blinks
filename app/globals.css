@@ -161,6 +161,23 @@
 .hero-figure { animation: unveil 1200ms cubic-bezier(.6,.05,.2,1) 200ms both; }
 .arch-frame::before { animation: rise 900ms ease 900ms both; }
 
+/* Auto-scrolling row (homepage category tiles). */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  padding-bottom: 0.5rem;
+}
+.marquee-track { display: flex; width: max-content; animation: marquee var(--marquee-duration, 40s) linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none !important; padding-inline: 1rem; }
+  .marquee-copy { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
