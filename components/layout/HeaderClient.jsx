@@ -75,6 +75,7 @@ export function CategoriesMenu({ collections }) {
           <div className="mt-1 border-t border-line pt-1">
             <Link href="/shop" className="block rounded-xl px-3 py-2.5 text-sm font-medium hover:bg-ivory-deep">Shop everything</Link>
             <Link href="/custom-orders" className="block rounded-xl px-3 py-2.5 text-sm text-burgundy hover:bg-ivory-deep">Request a custom piece</Link>
+            <Link href="/bulk-orders" className="block rounded-xl px-3 py-2.5 text-sm text-burgundy hover:bg-ivory-deep">Bulk & corporate orders</Link>
           </div>
         </div>
       )}
